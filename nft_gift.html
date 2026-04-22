@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinStat UZ | NFT Market</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --bg-dark: #000;
+            --card-bg: #0f0f0f;
+            --border-color: #1e1e1e;
+            --text-main: #ffffff;
+            --text-dim: #888;
+            --accent-blue: #007bff;
+            --danger-red: #ff453a;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding-bottom: 120px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-btn {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #warning-box {
+            display: none;
+            background: rgba(255, 69, 58, 0.1);
+            border: 1px solid var(--danger-red);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        #warning-box b {
+            color: var(--danger-red);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .sell-banner {
+            background: var(--card-bg);
+            border: 1px dashed var(--accent-blue);
+            border-radius: 20px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .gift-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .gift-card:active {
+            transform: scale(0.97);
+        }
+
+        .gift-img-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gift-img-box img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .price-tag {
+            background: #ffffff10;
+            padding: 8px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin-top: 8px;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .modal-content {
+            background: #111;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 35px 35px 0 0;
+            padding: 25px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .info-table {
+            background: #000;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 18px;
+            border-bottom: 1px solid #111;
+        }
+
+        .info-row span:first-child {
+            color: var(--text-dim);
+        }
+
+        .info-row span:last-child {
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        /* PASTKI MENYU */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            width: 90%;
+            max-width: 380px;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-dim);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            transition: 0.3s;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-wrapper img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo-text span {
+            font-weight: 200;
+            opacity: 0.6;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .full-cover {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 15px;
+        }
+
+        #m-img {
+            background-size: cover !important;
+            background-position: center !important;
+            object-fit: cover !important;
+            /* Rasmni qutiga to'liq yoyish uchun */
+            padding: 0 !important;
+            /* Rasmni ichkariga qisilib qolishini yo'qotadi */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-wrapper">
+                <img src="./V4gQu01.svg" alt="Logo">
+                <div class="logo-text">CoinStat <span>UZ</span></div>
+            </div>
+            <span id="update-time" style="font-size: 12px; color: var(--text-dim);">NFT gifts</span>
+        </div>
+
+        <div class="header-title">
+            <span>MRKT Gifts</span>
+            <div class="info-btn" onclick="toggleWarning()">
+                DIQQAT <i class="bi bi-exclamation-octagon-fill"></i>
+            </div>
+        </div>
+
+        <div id="warning-box"
+            style="display: block; background: rgba(255, 69, 58, 0.1); border: 1px solid #ff453a; border-radius: 15px; padding: 15px; color: #fff; margin-bottom: 20px;">
+            <b style="color: #ff453a; font-size: 16px;"><i class="bi bi-exclamation-octagon-fill"></i> DIQQAT!</b>
+            <p style="margin-top: 8px; font-size: 14px; font-weight: 500;">
+                Pulingizga kuymang! Savdoni faqat <b>Admin</b> bilan qiling.
+                Shaxsiyda kelishilgan savdolarga va yo'qotilgan pulingizga biz <b>javob bermaymiz.</b>
+                Aldanib qolmang!
+                Admin @kafilhub
+            </p>
+        </div>
+
+        <a href="https://t.me/cofeature" class="sell-banner">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="bi bi-plus-circle-fill" style="font-size: 26px; color: var(--accent-blue);"></i>
+                <div>
+                    <b style="font-size: 15px;">O'z giftingizni qo'shish</b><br>
+                    <span style="color:var(--text-dim); font-size: 12px;">Sotish uchun bizga yozing</span>
+                </div>
+            </div>
+            <i class="bi bi-chevron-right" style="color: var(--text-dim);"></i>
+        </a>
+        <!-- cardlar  @recysx -->
+        <div class="gift-grid">
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', '#70836', 'Tribal Totem 3% ', 'Carmine 1.2%', 'Sakura Flower 0.4% ', 'chil1.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-70836')">
+                <div class="gift-img-box">
+                    <img src="chil1.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', '#109171', 'Tribal Totem 3% ', 'Carmine 1.5%', 'Love Letter 0.2% ', 'chil2.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-109171')">
+                <div class="gift-img-box">
+                    <img src="./chil2.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', ' #328819', 'Oracle 3% ', 'Amber 1.2%', 'Aztec Falcon 0.2% ', 'chil3.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-328819')">
+                <div class="gift-img-box">
+                    <img src="chil3.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+
+            </div>
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', ' #328819', 'Oracle 3% ', 'Amber 1.2%', 'Aztec Falcon 0.2% ', 'chil3.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-328819')">
+                <div class="gift-img-box">
+                    <img src="chil3.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', ' #63802', 'Cherry On Top 3% ', 'Carmine 1.2%', 'Tulip 0.2% ', './vice1.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-63802')">
+                <div class="gift-img-box">
+                    <img src="./vice1.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', ' #21895', 'Classic 3% ', 'Purple 1.5%', 'Bobble Hat 0.3% ', './vice2.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-21895')">
+                <div class="gift-img-box">
+                    <img src="./vice2.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', ' #236315', 'Raspberry 1.5% ', 'Azure Blue 1%', 'Heraldic Lily 0.4% ', './vice3.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-236315')">
+                <div class="gift-img-box">
+                    <img src="./vice3.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', ' #70397', 'Dark Sparkle 2.5% ', 'Feldgrau 1%', 'Crusader Cross 0.4% ', './vice4.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-70397')">
+                <div class="gift-img-box">
+                    <img src="./vice4.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', ' #155066', 'Tribal Totem 3% ', 'Feldgrau 1.2%', 'Coffee Bean 0.4% ', './chil4.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-155066')">
+                <div class="gift-img-box">
+                    <img src="./chil4.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', ' #42590', 'Pine Cone 3% ', 'Burnt Sienna 1.2%', 'Venetian Mask 0.4% ', './vice5.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-42590')">
+                <div class="gift-img-box">
+                    <img src="./vice5.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', ' #268325', 'Vanilla Brick 2% ', '	Burnt Sienna 1.2%  ', 'Alkonost 0.3% ', './vice6.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-268325')">
+                <div class="gift-img-box">
+                    <img src="./vice6.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', ' #234512', 'Tiki Torch 3% ', '		Carmine 1.5%  ', 'Celtic Wolf 0.3% ', './chil5.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-234512')">
+                <div class="gift-img-box">
+                    <img src="./chil5.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', '  #297525', 'Iron Rose 3% ', 'Camo Green 1.5%  ', 'Brain 0.3% ', './chil6.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-297525')">
+                <div class="gift-img-box">
+                    <img src="./chil6.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Vice Cream', '  #264097', 'Sub-Zero 1.5% ', '	Pistachio 1%  ', 'Viking 0.2% ', './vice7.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ViceCream-264097')">
+                <div class="gift-img-box">
+                    <img src="./vice7.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Vice Cream</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+            <div class="gift-card"
+                onclick="openModal('Chill Flame', '  #25586', 'Candelabra 3% ', 'Steel Grey 1.5%      ', 'Planet 0.3% ', './chil7.png', '#a27a6e', 'https://t.me/recysx?text=Assalomu%20alaykum%20CoinStat%20Uz%20orqali%20keldim%20NFT%20Gift%20Sotib%20olmoqchiman%20Admin%20Orqali', 'https://t.me/nft/ChillFlame-25586')">
+                <div class="gift-img-box">
+                    <img src="./chil7.png" class="full-cover">
+                </div>
+                <p style="margin:0; font-weight:bold;">Chill Flame</p>
+                <div class="price-tag">65 000 ming</div>
+            </div>
+
+
+            <!-- @recysx tayor -->
+
+
+
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="giftModal" onclick="if(event.target == this) closeModal()">
+        <div class="modal-content">
+            <h2 id="m-title" style="text-align: center; margin-bottom: 20px;">Name</h2>
+            <img id="m-img" src="" alt="NFT Image"
+                style="width:150px; height:150px; border-radius:25px; margin:0 auto 20px; display:block; object-fit:cover;">
+
+
+            <div class="info-table">
+                <div class="info-row"><span>Model</span><span id="m-model"></span></div>
+                <div class="info-row"><span>Backdrop</span><span id="m-backdrop"></span></div>
+                <div class="info-row"><span>Symbol</span><span id="m-symbol"></span></div>
+            </div>
+
+            <a id="m-owner-link" href="#" target="_blank"
+                style="background: var(--accent-blue); color:white; padding:18px; border-radius:18px; text-align:center; text-decoration:none; display:block; font-weight:bold; margin-bottom:12px; font-size: 16px;">
+                <i class="bi bi-telegram"></i> Sotuvchi bilan bog'lanish
+            </a>
+
+            <a id="m-nft-link" href="#" target="_blank"
+                style="background: #222; color:white; padding:18px; border-radius:18px; text-align:center; text-decoration:none; display:block; font-weight:bold; margin-bottom:12px; font-size: 16px;">
+                <i class="bi bi-box-seam"></i> Giftni ko'rish
+            </a>
+
+            <button onclick="closeModal()"
+                style="background:none; border: 1px solid #333; color:white; width:100%; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">Yopish</button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="buy-ton.html" class="nav-item">
+            <i class="bi bi-cart"></i>
+            <span>Olish</span>
+        </a>
+        <a href="./nft_gift.html" class="nav-item">
+            <i class="bi bi-gift"></i>
+            <span>Gift</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span>Kurs</span>
+        </a>
+        <a href="./hamkor.html" class="nav-item active">
+            <i class="bi bi-people-fill"></i>
+            <span>Hamkorlik</span>
+        </a>
+    </nav>
+
+    <script>
+        function toggleWarning() {
+            const box = document.getElementById('warning-box');
+            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // DIQQAT: Funksiyaga nftLink parametri qo'shildi
+        function openModal(name, id, model, backdrop, symbol, img, bg, ownerLink, nftLink) {
+            document.getElementById('m-title').innerText = name + " " + id;
+            document.getElementById('m-model').innerText = model;
+            document.getElementById('m-backdrop').innerText = backdrop;
+            document.getElementById('m-symbol').innerText = symbol;
+
+            const imgEl = document.getElementById('m-img');
+            imgEl.src = img;
+            imgEl.style.background = bg;
+
+            // Sotuvchi linkini shu yerda almashtiradi
+            document.getElementById('m-owner-link').href = ownerLink;
+            // NFT linkini shu yerda almashtiradi (YANGI)
+            document.getElementById('m-nft-link').href = nftLink;
+
+            document.getElementById('giftModal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('giftModal').style.display = 'none'; }
+    </script>
+
+</body>
+
+</html>

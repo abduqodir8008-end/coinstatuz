@@ -1,0 +1,195 @@
+.bottom-nav {
+    position: fixed;
+    bottom: 15px; /* Ekranning eng pastidan ozgina tepada */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 400px;
+    background: #121212; /* To'q rangli fon */
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 5px;
+    border-radius: 35px; /* Dumaloq shakl */
+    border: 1px solid #1e1e1e;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #555; /* Aktiv bo'lmagan tugmalar rangi */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    gap: 4px;
+    transition: 0.3s;
+    flex: 1;
+}
+
+/* Aktiv menyu (ko'k rang) */
+.nav-item.active {
+    color: #007bff;
+}
+
+.nav-item i {
+    font-size: 20px;
+}
+
+  .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-wrapper img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo-text span {
+            font-weight: 200;
+            opacity: 0.6;
+        }
+
+/* Gift Kartochkasi */
+.gift-card {
+    background: var(--card);
+    border: 1px solid var(--brd);
+    border-radius: 24px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.gift-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.gift-card span {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--stars);
+}
+
+/* Sotib olish tugmasi */
+.btn-buy {
+    background: var(--green);
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 8px 15px;
+    border-radius: 12px;
+    width: 100%;
+    transition: transform 0.2s;
+}
+
+.btn-buy:active {
+    transform: scale(0.95);
+}
+
+.gift-card {
+    /* ... avvalgi stillar ... */
+    cursor: pointer;
+    user-select: none; /* Matn belgilanishini oldini oladi */
+    -webkit-tap-highlight-color: transparent; /* Mobil brauzerlarda ko'k fonni o'chiradi */
+    transition: transform 0.1s ease-out;
+    will-change: transform; /* Brauzerga animatsiya bo'lishini bildiradi */
+}
+
+.btn-buy {
+    /* ... avvalgi stillar ... */
+    pointer-events: none; /* Tugma bosilganda kartochka animatsiyasi ishlashi uchun */
+}
+
+.premium-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.premium-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 24px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.premium-card .duration {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(45deg, #007bff, #8e44ad);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+.premium-card img {
+    width: 70px;
+    margin: 10px 0;
+}
+
+.premium-card .price {
+    color: #ffcc00; /* Gift bo'limidagi narx rangi */
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.premium-card .btn-buy {
+    background: #28a745; /* Yashil xarid tugmasi */
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 12px;
+}
+/* Premium bo'limidan keyingi sarlavhani yaqinlashtirish */
+.premium-grid {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+/* "Xarid qilish" sarlavhasining bo'shlig'ini o'ldirish */
+h2.xarid-title {
+    margin-top: -20px !important; /* Blokni tepaga tortadi */
+    padding-top: 0px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Abdulloh kartochkasini sarlavhaga yaqinlashtirish */
+.action-card {
+    margin-top: 5px !important;
+}

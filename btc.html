@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Live Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root { 
+            --bg: #0b0e11; 
+            --card: #1e2329; 
+            --btc-gold: #f7931a; 
+            --up: #0ecb81; 
+            --down: #f6465d;
+        }
+        
+        body { 
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh; 
+        }
+
+        .phone-container { 
+            width: 100%; 
+            max-width: 480px; 
+            background: var(--card); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 0 50px rgba(0,0,0,0.6); 
+        }
+        
+        /* Header - rasm chiqishi va siqilib qolmasligi uchun */
+        .top-header { 
+            height: 260px; 
+            background: linear-gradient(180deg, var(--btc-gold) 0%, var(--card) 100%); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            padding-top: 30px; 
+        }
+
+        .back-btn { 
+            position: absolute; 
+            left: 20px; 
+            top: 45px; 
+            font-size: 1.8rem; 
+            color: white; 
+            cursor: pointer; 
+            z-index: 10; 
+        }
+
+        /* Bitcoin logotipi uchun maxsus uslub */
+        .floating-logo { 
+            width: 100px; 
+            height: 100px; 
+            border-radius: 50%;
+            animation: floatAnim 3s ease-in-out infinite; 
+            filter: drop-shadow(0 15px 25px rgba(247, 147, 26, 0.5)); 
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+        
+        @keyframes floatAnim { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-15px); } 
+        }
+
+        .price-display { 
+            text-align: center; 
+            margin-top: -10px; 
+            padding: 0 20px; 
+            min-height: 110px; 
+        }
+
+        .main-price { 
+            font-size: 3.8rem; 
+            font-weight: 900; 
+            letter-spacing: -2px; 
+            line-height: 1.1;
+        }
+
+        .calc-wrapper { padding: 25px 20px; }
+
+        .input-item { 
+            background: #2b3139; 
+            border-radius: 20px; 
+            padding: 15px 20px; 
+            margin-bottom: 15px; 
+            border: 1px solid #3d434a; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .input-item i { font-size: 1.5rem; color: var(--btc-gold); }
+
+        .input-content { flex: 1; }
+
+        .input-item label { 
+            display: block; 
+            font-size: 0.7rem; 
+            color: #848e9c; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin-bottom: 2px; 
+        }
+
+        .input-item input { 
+            background: transparent; 
+            border: none; 
+            color: white; 
+            width: 100%; 
+            font-size: 1.6rem; 
+            font-weight: bold; 
+            outline: none; 
+        }
+
+        /* Footer dizayni tuzatilgan */
+        .footer-status { 
+            margin-top: auto; 
+            padding: 25px; 
+            background: rgba(0, 0, 0, 0.2); 
+            border-top: 1px solid #2b3139; 
+            text-align: center;
+        }
+
+        .rate-line { 
+            font-size: 1rem; 
+            color: #848e9c; 
+            margin-bottom: 5px; 
+        }
+
+        .rate-line span { 
+            color: white; 
+            font-weight: bold; 
+        }
+
+        .time-line { 
+            font-size: 0.85rem; 
+            color: #5c6a77; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+    <div class="top-header">
+        <i class="bi bi-arrow-left back-btn" onclick="location.href='index.html'"></i>
+        <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/btc.png" class="floating-logo" alt="BTC Logo">
+        <h2 class="mt-2 fw-bold" style="letter-spacing: 2px;">BITCOIN</h2>
+    </div>
+
+    <div class="price-display">
+        <div id="price" class="main-price">$0</div>
+        <div id="change" class="fw-bold fs-4">0.00%</div>
+    </div>
+
+    <div class="calc-wrapper">
+        <div class="input-item">
+            <i class="bi bi-currency-bitcoin"></i>
+            <div class="input-content">
+                <label>BTC Miqdori</label>
+                <input type="number" id="bVal" value="1" step="0.000001" oninput="runCalc('b')">
+            </div>
+        </div>
+
+        <div class="input-item">
+            <i class="bi bi-currency-dollar" style="color: var(--up);"></i>
+            <div class="input-content">
+                <label>AQSH Dollari (USD)</label>
+                <input type="text" id="uVal" oninput="runCalc('u')">
+            </div>
+        </div>
+
+        <div class="input-item" style="border-bottom: 4px solid var(--btc-gold);">
+            <i class="bi bi-wallet2" style="color: var(--btc-gold);"></i>
+            <div class="input-content">
+                <label>O'zbek So'mi (UZS)</label>
+                <input type="text" id="sVal" oninput="runCalc('s')">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-status">
+        <div class="rate-line">1 USD = <span id="rateUzs">...</span> UZS</div>
+        <div class="time-line">Yangilandi: <span id="clock">--:--:--</span></div>
+    </div>
+</div>
+
+<script>
+    let btcPrice = 0, uzsNow = 12650;
+
+    function formatNum(n, d = 0) {
+        return parseFloat(n).toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
+    }
+
+    function parseNum(s) {
+        return parseFloat(s.toString().replace(/\s/g, '').replace(',', '.')) || 0;
+    }
+
+    async function updateBTC() {
+        try {
+            // UZS Kursi
+            const r1 = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+            const d1 = await r1.json();
+            uzsNow = d1.rates.UZS;
+            document.getElementById('rateUzs').innerText = formatNum(uzsNow);
+
+            // BTC Narxi (Binance)
+            const r2 = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT');
+            const d2 = await r2.json();
+            
+            if (d2.lastPrice) {
+                btcPrice = parseFloat(d2.lastPrice);
+                const change = parseFloat(d2.priceChangePercent);
+
+                document.getElementById('price').innerText = `$${formatNum(btcPrice, 0)}`;
+                const cEl = document.getElementById('change');
+                cEl.innerText = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+                cEl.style.color = change >= 0 ? '#0ecb81' : '#f6465d';
+            }
+
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+            
+            if (!['bVal', 'uVal', 'sVal'].includes(document.activeElement.id)) {
+                runCalc('b');
+            }
+        } catch(e) { 
+            console.log("Ma'lumot yangilanmadi...");
+        }
+    }
+
+    function runCalc(type) {
+        const b = document.getElementById('bVal'), 
+              u = document.getElementById('uVal'), 
+              s = document.getElementById('sVal');
+        
+        if (!btcPrice) return;
+
+        if (type === 'b') {
+            const val = parseFloat(b.value) || 0;
+            const usd = val * btcPrice;
+            u.value = formatNum(usd, 2);
+            s.value = formatNum(Math.round(usd * uzsNow));
+        } else if (type === 'u') {
+            const val = parseNum(u.value);
+            b.value = (val / btcPrice).toFixed(6);
+            s.value = formatNum(Math.round(val * uzsNow));
+        } else if (type === 's') {
+            const val = parseNum(s.value);
+            const usd = val / uzsNow;
+            u.value = formatNum(usd, 2);
+            b.value = (usd / btcPrice).toFixed(6);
+        }
+    }
+
+    updateBTC();
+    setInterval(updateBTC, 5000); 
+</script>
+
+</body>
+</html>

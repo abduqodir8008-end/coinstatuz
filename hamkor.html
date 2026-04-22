@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinStat UZ | Partnership</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --bg-dark: #000;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #999;
+            --accent-blue: #007bff;
+            --accent-glow: rgba(0, 123, 255, 0.3);
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 20px 120px 20px;
+            /* Pastki menyu uchun joy */
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- HEADER --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-blue);
+        }
+
+        /* --- HAMKORLIK BO'LIMI --- */
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .section-subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .collab-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .collab-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-blue);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .collab-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 123, 255, 0.15);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--accent-blue);
+            flex-shrink: 0;
+        }
+
+        .collab-info h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .collab-info p {
+            margin: 4px 0 0;
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* --- ADMIN TUGMASI --- */
+        .admin-btn {
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .admin-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- BOTTOM NAVIGATION --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            width: 90%;
+            max-width: 380px;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-dim);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            transition: 0.3s;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-wrapper">
+                <img src="./V4gQu01.svg" alt="Logo">
+                <div class="logo-text">CoinStat <span>UZ</span></div>
+            </div>
+            <span id="update-time" style="font-size: 12px; color: var(--text-dim);">Jonli yangilanmoqda</span>
+        </div>
+
+        <h1 class="section-title">Hamkorlik</h1>
+        <p class="section-subtitle">Loyihamiz bilan birga o'sing va daromad qiling</p>
+
+        <div class="collab-list">
+
+
+
+            <a href="https://t.me/cofeature" class="collab-card">
+                <div class="collab-icon">
+                    <i class="bi bi-coin"></i>
+                </div>
+                <div class="collab-info">
+                    <h3>TON Kripto Hamkorlik</h3>
+                    <p>Katta hajmdagi TON oldi-sotdisi va likvidlik bo'yicha maxsus shartlar.</p>
+                </div>
+            </a>
+
+            <a href="https://t.me/cofeature" class="collab-card">
+                <div class="collab-icon">
+                    <i class="bi bi-megaphone-fill"></i>
+                </div>
+                <div class="collab-info">
+                    <h3>Reklama & Media</h3>
+                    <p>CoinStat UZ platformalarida reklama joylashtirish va brending xizmatlari.</p>
+                </div>
+            </a>
+
+            <a href="https://t.me/cofeature" class="collab-card">
+                <div class="collab-icon">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+                <div class="collab-info">
+                    <h3>Boshqa takliflar</h3>
+                    <p>Agar sizda o'zgacha g'oya yoki biznes taklif bo'lsa, biz eshitishga tayyormiz.</p>
+                </div>
+            </a>
+
+        </div>
+
+        <a href="https://t.me/cofeature" class="admin-btn">
+            <i class="bi bi-telegram"></i>
+            Admin bilan bog'lanish
+        </a>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="buy-ton.html" class="nav-item">
+            <i class="bi bi-cart"></i>
+            <span>Olish</span>
+        </a>
+        <a href="./nft_gift.html" class="nav-item">
+            <i class="bi bi-gift"></i>
+            <span>Gift</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span>Kurs</span>
+        </a>
+        <a href="./hamkor.html" class="nav-item active">
+            <i class="bi bi-people-fill"></i>
+            <span>Hamkorlik</span>
+        </a>
+    </nav>
+
+    <script>
+        // Oddiy bosish effektlari
+        document.querySelectorAll('.collab-card').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+</body>
+
+</html>
