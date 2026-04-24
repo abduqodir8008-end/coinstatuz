@@ -198,51 +198,7 @@
         }
 
         /* PASTKI MENYU */
-        .bottom-nav {
-            position: fixed;
-            bottom: 25px;
-            width: 90%;
-            max-width: 380px;
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            border-radius: 28px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: var(--text-dim);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-            transition: 0.3s;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 4px;
-        }
-
-        .nav-item span {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .nav-item.active {
-            color: var(--accent-blue);
-        }
-
-        .nav-item.active i {
-            transform: translateY(-2px);
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
+      
 
         .header {
             display: flex;
@@ -275,19 +231,7 @@
             opacity: 0.6;
         }
 
-        .nav-item i {
-            font-size: 20px;
-        }
-
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .nav-item.active {
-            color: var(--accent-blue);
-        }
-
+       
         .full-cover {
             width: 100% !important;
             height: 100% !important;
@@ -303,13 +247,64 @@
             padding: 0 !important;
             /* Rasmni ichkariga qisilib qolishini yo'qotadi */
         }
+         .top-navigation {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .back-link:active {
+            transform: scale(0.8);
+            /* Bosilganda kichrayish effekti */
+            opacity: 0.7;
+        }
+
+        /* KARTALAR DIZAYNI (Rasmdagidek chiqishi uchun) */
+        .menu-card {
+            background: #121212;
+            /* To'q rangli karta */
+            border: 1px solid #1e1e1e;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-link i {
+            font-size: 32px;
+            /* Strelkani kattalashtiradi */
+            font-weight: bold;
+        }
+
+        .top-navigation {
+            padding: 20px 0;
+            /* Tepadagi bo'shliqni oshiradi */
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
+         
         <div class="header">
+             <div class="top-navigation">
+            <a href="bolim.html" class="back-link">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+        </div>
             <div class="logo-wrapper">
                 <img src="./V4gQu01.svg" alt="Logo">
                 <div class="logo-text">CoinStat <span>UZ</span></div>
@@ -518,25 +513,7 @@
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <a href="buy-ton.html" class="nav-item">
-            <i class="bi bi-cart"></i>
-            <span>Olish</span>
-        </a>
-        <a href="./nft_gift.html" class="nav-item">
-            <i class="bi bi-gift"></i>
-            <span>Gift</span>
-        </a>
-        <a href="index.html" class="nav-item">
-            <i class="bi bi-graph-up-arrow"></i>
-            <span>Kurs</span>
-        </a>
-        <a href="./hamkor.html" class="nav-item active">
-            <i class="bi bi-people-fill"></i>
-            <span>Hamkorlik</span>
-        </a>
-    </nav>
-
+   
     <script>
         function toggleWarning() {
             const box = document.getElementById('warning-box');
