@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoinStat UZ | Savdo Markazi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #000;
+            --card-bg: #0f0f0f;
+            --border-color: #1e1e1e;
+            --text-main: #ffffff;
+            --text-dim: #888;
+            --accent-blue: #007bff;
+            --accent-gold: #ffcc00;
+            --accent-pink: #ff3366;
+            --input-bg: #1c1c1e;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* SAHIFA YUKLANISH ANIMATSIYASI */
+        .container { 
+            max-width: 420px; 
+            padding: 20px;
+            animation: fadeInPage 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEADER */
+        .top-navigation { padding: 10px 0 20px 0; display: flex; align-items: center; }
+        .back-link { color: white; font-size: 28px; text-decoration: none; transition: 0.3s; display: inline-flex; }
+        .back-link:hover { color: var(--accent-blue); transform: translateX(-5px); }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+        .logo-wrapper { display: flex; align-items: center; gap: 12px; }
+        .logo-wrapper img { width: 45px; height: 45px; transition: transform 0.5s ease; }
+        .logo-wrapper:hover img { transform: rotate(360deg); }
+        .logo-text { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
+        .logo-text span { font-weight: 200; opacity: 0.6; }
+
+        /* SERVICE KARTALARI ANIMATSIYASI */
+        .service-row { 
+            display: flex; 
+            align-items: center; 
+            padding: 20px; 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            margin-bottom: 16px; 
+            cursor: pointer; 
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-row:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+            background: #121212;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Rangli Glow (nurlanish) effektlari */
+        .service-row.stars-row:hover { box-shadow: 0 0 20px rgba(255, 204, 0, 0.15); border-color: var(--accent-gold); }
+        .service-row.premium-row:hover { box-shadow: 0 0 20px rgba(0, 123, 255, 0.15); border-color: var(--accent-blue); }
+        .service-row.gift-row:hover { box-shadow: 0 0 20px rgba(255, 51, 102, 0.15); border-color: var(--accent-pink); }
+
+        .icon-box { 
+            width: 48px; height: 48px; 
+            background: #1a1a1a; 
+            border-radius: 14px; 
+            display: flex; align-items: center; justify-content: center; 
+            margin-right: 18px; font-size: 24px;
+            transition: 0.3s;
+        }
+        .service-row:hover .icon-box { transform: scale(1.1); }
+
+        /* MODAL */
+        .modal.fade .modal-dialog {
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal.show .modal-dialog { transform: scale(1); }
+        .modal-content { background: #0c0c0c; border: 1px solid #2a2a2a; border-radius: 28px; color: white; }
+
+        /* INPUTS */
+        .custom-input {
+            background-color: var(--input-bg) !important;
+            border: 1px solid #333 !important;
+            color: #ffffff !important;
+            border-radius: 15px;
+            padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .custom-input:focus { 
+            border-color: var(--accent-blue) !important; 
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2) !important;
+            transform: scale(1.01);
+        }
+
+        /* TUGMALAR */
+        .buy-btn {
+            background: linear-gradient(135deg, var(--accent-blue), #0056b3);
+            border: none; border-radius: 16px; padding: 16px;
+            font-weight: 700; font-size: 16px; width: 100%; margin-top: 15px; 
+            color: white; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+        .buy-btn:active { transform: scale(0.95); }
+        .buy-btn:hover { filter: brightness(1.1); box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4); }
+
+        /* GIFT ITEMS */
+        .gift-item { 
+            flex: 0 0 100px; background: #1c1c1e; padding: 15px 10px; 
+            border-radius: 18px; border: 1px solid #333; text-align: center; 
+            transition: 0.3s;
+        }
+        .gift-item:hover { transform: scale(1.05); border-color: var(--accent-pink); background: #252528; }
+
+        /* PAYMENT INFO */
+        .payment-info { 
+            background: linear-gradient(180deg, #1c1c1e 0%, #121212 100%);
+            border: 1px solid #333; border-radius: 20px; padding: 25px; text-align: center; 
+        }
+        .card-num { 
+            color: var(--accent-gold); font-family: 'Courier New', monospace; 
+            font-size: 22px; font-weight: bold; margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto">
+        <div class="header">
+            <div class="top-navigation">
+                <a href="./bolim.html" class="back-link"><i class="bi bi-arrow-left"></i></a>
+            </div>
+            <div class="logo-wrapper">
+                <img src="./V4gQu01.svg" alt="Logo" onerror="this.src='https://img.icons8.com/fluency/96/combo-chart.png'">
+                <div class="logo-text">CoinStat <span>UZ</span></div>
+            </div>
+            <span style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Live</span>
+        </div>
+
+        <div id="services-list">
+            <div class="service-row stars-row" onclick="openModal('stars')">
+                <div class="icon-box" style="color: var(--accent-gold);"><i class="bi bi-star-fill"></i></div>
+                <div class="flex-grow-1"><b>Telegram Stars</b><br><span style="color: var(--text-dim); font-size: 13px;">Tezkor yuborish</span></div>
+                <i class="bi bi-chevron-right text-dim"></i>
+            </div>
+
+            <div class="service-row premium-row" onclick="openModal('premium')">
+                <div class="icon-box" style="color: var(--accent-blue);"><i class="bi bi-gem"></i></div>
+                <div class="flex-grow-1"><b>Telegram Premium</b><br><span style="color: var(--text-dim); font-size: 13px;">3, 6, 12 oylik</span></div>
+                <i class="bi bi-chevron-right text-dim"></i>
+            </div>
+
+            <div class="service-row gift-row" onclick="openModal('gift')">
+                <div class="icon-box" style="color: var(--accent-pink);"><i class="bi bi-gift-fill"></i></div>
+                <div class="flex-grow-1"><b>NFT Gift Savdosi</b><br><span style="color: var(--text-dim); font-size: 13px;">Eksklyuziv to'plam</span></div>
+                <i class="bi bi-chevron-right text-dim"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true" data-bs-theme="dark">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="mTitle" class="modal-title w-100 text-center fw-bold mt-2">Xizmat</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 pt-2">
+                    <div id="step1">
+                        <input type="text" id="mUser" class="form-control custom-input mb-4" placeholder="@username yoki ID">
+                        <div id="starsArea" class="d-none">
+                            <input type="number" id="mStarsQty" class="form-control custom-input mb-3" placeholder="Stars miqdori (50-5000)" oninput="calcStars()">
+                            <div class="d-flex gap-2 mb-3">
+                                <div class="quick-btn btn btn-outline-secondary border-secondary-subtle rounded-pill flex-grow-1" onclick="setStars(50)">50</div>
+                                <div class="quick-btn btn btn-outline-secondary border-secondary-subtle rounded-pill flex-grow-1" onclick="setStars(200)">200</div>
+                                <div class="quick-btn btn btn-outline-secondary border-secondary-subtle rounded-pill flex-grow-1" onclick="setStars(500)">500</div>
+                            </div>
+                        </div>
+                        <div id="premiumArea" class="d-none">
+                            <select id="mPremiumDur" class="form-select custom-input mb-3" onchange="calcPremium()">
+                                <option value="135000">3 oylik — 135,000</option>
+                                <option value="195000">6 oylik — 195,000</option>
+                                <option value="350000">1 yillik — 350,000</option>
+                            </select>
+                        </div>
+                        <div id="giftArea" class="d-none mb-3">
+                            <div class="gift-slider d-flex overflow-auto gap-2 pb-2" style="scrollbar-width: none;">
+                                <div class="gift-item" onclick="setGift('Lion', 45000)"><img src="image1.png"><p>Lion</p><span>45k</span></div>
+                                <div class="gift-item" onclick="setGift('Frog', 35000)"><img src="https://img.icons8.com/fluency/96/frog.png"><p>Frog</p><span>35k</span></div>
+                                <div class="gift-item" onclick="setGift('Star', 60000)"><img src="https://img.icons8.com/fluency/96/star.png"><p>Star</p><span>60k</span></div>
+                            </div>
+                        </div>
+                        <button class="buy-btn" id="mainBtn" onclick="goToStep2()">Sotib olish</button>
+                    </div>
+                    <div id="step2" class="d-none">
+                        <div class="order-summary mb-3 p-3 rounded-4 border border-secondary" id="orderSummaryText"></div>
+                        <div class="payment-info">
+                            <span style="color: var(--text-dim); font-size: 13px;">To'lov uchun karta:</span>
+                            <div class="card-num">8600 0000 0000 0000</div>
+                            <div class="card-name">Karta egasi: <b>Abduqodir X.</b></div>
+                            <p class="small mt-3 mb-0" style="color: #00d2ff;">To'lovdan so'ng adminga chekni yuboring.</p>
+                        </div>
+                        <a href="https://t.me/kafilhub" class="buy-btn d-block text-center text-decoration-none mt-3">Chekni Yuborish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // SCRIPT QISMI O'ZGARISSIZ QOLDI (Xuddi sizning kodingizdek)
+        let currentMode = '';
+        let finalPrice = 0;
+        let selectedGift = '';
+        const myModal = new bootstrap.Modal(document.getElementById('actionModal'));
+
+        function resetForm() {
+            document.getElementById('step1').classList.remove('d-none');
+            document.getElementById('step2').classList.add('d-none');
+            document.getElementById('starsArea').classList.add('d-none');
+            document.getElementById('premiumArea').classList.add('d-none');
+            document.getElementById('giftArea').classList.add('d-none');
+            document.getElementById('mainBtn').innerText = "Sotib olish";
+            document.getElementById('mainBtn').classList.remove('d-none');
+            document.getElementById('mUser').value = '';
+            document.getElementById('mStarsQty').value = '';
+        }
+
+        function openModal(type) {
+            currentMode = type;
+            resetForm();
+            if(type === 'stars') {
+                document.getElementById('mTitle').innerText = "Stars Olish";
+                document.getElementById('starsArea').classList.remove('d-none');
+                finalPrice = 0;
+            } else if(type === 'premium') {
+                document.getElementById('mTitle').innerText = "Premium Olish";
+                document.getElementById('premiumArea').classList.remove('d-none');
+                calcPremium(); 
+            } else if(type === 'gift') {
+                document.getElementById('mTitle').innerText = "NFT Gift Tanlash";
+                document.getElementById('giftArea').classList.remove('d-none');
+                document.getElementById('mainBtn').classList.add('d-none');
+            }
+            myModal.show();
+        }
+
+        function calcStars() {
+            let qty = document.getElementById('mStarsQty').value || 0;
+            finalPrice = qty * 240;
+            document.getElementById('mainBtn').innerText = finalPrice > 0 ? `Sotib olish (${finalPrice.toLocaleString()} so'm)` : "Sotib olish";
+        }
+
+        function setStars(qty) {
+            document.getElementById('mStarsQty').value = qty;
+            calcStars();
+        }
+
+        function calcPremium() {
+            let val = document.getElementById('mPremiumDur').value;
+            finalPrice = parseInt(val);
+            document.getElementById('mainBtn').innerText = `Sotib olish (${finalPrice.toLocaleString()} so'm)`;
+        }
+
+        function setGift(name, price) {
+            selectedGift = name;
+            finalPrice = price;
+            goToStep2();
+        }
+
+        function goToStep2() {
+            const user = document.getElementById('mUser').value;
+            if(!user) return alert("Avval @username yoki ID kiriting!");
+
+            let summaryHtml = "";
+            if(currentMode === 'stars') {
+                const qty = document.getElementById('mStarsQty').value;
+                if(qty < 50) return alert("Minimal 50 ta stars kiritilishi kerak!");
+                summaryHtml = `<div class="mb-1"><span>Xaridor:</span> <b>${user}</b></div><div class="mb-1"><span>Mahsulot:</span> <b>${qty} ta Stars</b></div><div><span>Jami:</span> <b style="color: #ffcc00;">${finalPrice.toLocaleString()} so'm</b></div>`;
+            } else if(currentMode === 'premium') {
+                const durText = document.getElementById('mPremiumDur').options[document.getElementById('mPremiumDur').selectedIndex].text.split(' —')[0];
+                summaryHtml = `<div class="mb-1"><span>Xaridor:</span> <b>${user}</b></div><div class="mb-1"><span>Mahsulot:</span> <b>Premium (${durText})</b></div><div><span>Jami:</span> <b style="color: #007bff;">${finalPrice.toLocaleString()} so'm</b></div>`;
+            } else if(currentMode === 'gift') {
+                summaryHtml = `<div class="mb-1"><span>Xaridor:</span> <b>${user}</b></div><div class="mb-1"><span>Mahsulot:</span> <b>NFT Gift - ${selectedGift}</b></div><div><span>Jami:</span> <b style="color: #ff3366;">${finalPrice.toLocaleString()} so'm</b></div>`;
+            }
+            document.getElementById('orderSummaryText').innerHTML = summaryHtml;
+            document.getElementById('step1').classList.add('d-none');
+            document.getElementById('step2').classList.remove('d-none');
+            document.getElementById('mTitle').innerText = "To'lov Ma'lumotlari";
+        }
+    </script>
+</body>
+</html>
