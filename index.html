@@ -5,198 +5,286 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoinStat UZ | Live Assets</title>
+    <!-- Professional Shrify -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <style>
         :root {
-            --bg-dark: #000;
-            --card-bg: #0f0f0f;
-            --border-color: #1e1e1e;
-            --text-main: #ffffff;
-            --text-dim: #666;
-            --up-color: #00ff88;
-            --down-color: #ff3366;
-            --accent-blue: #007bff;
+            --bg-pure: #000000;
+            --card-dark: #0a0e14;
+            --border-neon: #1f2937;
+            --text-white: #ffffff;
+            --text-grey: #6b7280;
+            --trade-green: #00ff88;
+            --trade-red: #ff2a5f;
         }
 
         body {
-            background: var(--bg-dark);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-pure);
+            color: var(--text-white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .container {
+        /* ASOSIY KONTEYNER */
+        .phone-container {
             width: 100%;
-            max-width: 420px;
-            padding: 20px;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* TEPADAGI ORQAGA QAYTISH TUGMASI */
-        .top-navigation {
-            padding: 10px 0 20px 0;
+            max-width: 430px;
+            background: var(--bg-pure);
+            min-height: 100vh;
+            padding: 24px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+            box-sizing: border-box;
+            
+            /* SAYTGA KIRGANDA FAQAT BIR MARTA CHIQADIGAN SILLIQ ANIMATSIYA */
+            opacity: 0;
+            transform: translateY(15px);
+            animation: appEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .back-link {
-            color: white;
-            font-size: 28px;
-            text-decoration: none;
-            transition: 0.2s;
-            display: inline-flex;
-        }
-
-        .back-link:active {
-            transform: scale(0.9);
-            opacity: 0.7;
+        @keyframes appEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* HEADER */
-        .header {
+        .top-navigation {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed var(--border-neon);
         }
 
-        .logo-wrapper {
+        .back-btn {
+            color: var(--text-white);
+            font-size: 1.2rem;
+            text-decoration: none;
+            width: 42px;
+            height: 42px;
+            background: var(--card-dark);
+            border-radius: 12px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-neon);
+            transition: all 0.2s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.95);
+        }
+
+        .brand-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--trade-green);
+            background: rgba(0, 255, 136, 0.05);
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .blink-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--trade-green);
+            border-radius: 50%;
+            animation: indicatorBlink 1.5s infinite;
+        }
+
+        @keyframes indicatorBlink {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* CRYPTO RO'YXATI */
+        .assets-wrapper {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
 
-        .logo-wrapper img {
-            width: 45px;
-            height: 45px;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .logo-text span {
-            font-weight: 200;
-            opacity: 0.6;
-        }
-
-        /* KRIPTO QATORLAR */
-        .crypto-row {
+        .crypto-item {
             display: flex;
             align-items: center;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 28px;
-            margin-bottom: 14px;
+            padding: 16px 20px;
+            background: var(--card-dark);
+            border-radius: 16px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-neon);
+            transition: background 0.2s, border-color 0.2s;
         }
 
-        .crypto-row:hover {
-            border-color: #333;
-            background: #151515;
-            transform: translateY(-2px);
+        .crypto-item:hover {
+            border-color: #374151;
+            background: #111827;
         }
 
-        .icon {
-            width: 48px;
-            height: 48px;
+        .coin-icon-box {
+            margin-right: 16px;
+        }
+
+        .coin-img {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            margin-right: 18px;
         }
 
-        .meta { flex: 1; }
-        .meta b { display: block; font-size: 18px; margin-bottom: 2px; }
-        .meta span { color: var(--text-dim); font-size: 13px; font-weight: 600; text-transform: uppercase; }
-
-        .price-box { text-align: right; }
-        .p-val { font-family: 'SF Mono', monospace; font-size: 17px; font-weight: 700; }
-        .p-change {
-            font-size: 12px;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            display: inline-block;
-            margin-top: 4px;
+        .coin-details {
+            flex: 1;
         }
 
-        .up { color: var(--up-color); }
-        .down { color: var(--down-color); }
+        .coin-details .c-name {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 2px;
+        }
 
-        /* FLASH EFFEKTI */
-        .flash-up { animation: flashU 0.6s; }
-        .flash-down { animation: flashD 0.6s; }
-        @keyframes flashU { 0% { color: var(--up-color); } 100% { color: white; } }
-        @keyframes flashD { 0% { color: var(--down-color); } 100% { color: white; } }
+        .coin-details .c-ticker {
+            color: var(--text-grey);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .price-details {
+            text-align: right;
+        }
+
+        .price-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-white);
+            display: block;
+            margin-bottom: 4px;
+            transition: color 0.1s ease;
+        }
+
+        .change-badge {
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .change-badge.up { color: var(--trade-green); }
+        .change-badge.down { color: var(--trade-red); }
+
+        /* HAQIQIY BIRJA USLUBIDAGI NORMAN NARX UPDATE ANIMATSIYASI (FAQAT MATN UCHUN) */
+        .price-flash-up { animation: flashUp 0.8s ease-out; }
+        .price-flash-down { animation: flashDown 0.8s ease-out; }
+
+        @keyframes flashUp {
+            0% { color: var(--trade-green); }
+            100% { color: var(--text-white); }
+        }
+
+        @keyframes flashDown {
+            0% { color: var(--trade-red); }
+            100% { color: var(--text-white); }
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-      
-
-        <div class="header">
-              <div class="top-navigation">
-            <a href="bolim.html" class="back-link">
+    <div class="phone-container">
+        <!-- Navigation -->
+        <div class="top-navigation">
+            <a href="bolim.html" class="back-btn">
                 <i class="bi bi-arrow-left"></i>
             </a>
-        </div>
-            <div class="logo-wrapper">
-                <img src="./black  logo.svg" alt="Logo">
-                <div class="logo-text">cofeature <span></span></div>
+            <div class="brand-title">cofeature</div>
+            <div class="live-indicator">
+                <div class="blink-dot"></div> Live
             </div>
-            <span style="font-size: 12px; color: var(--text-dim);">Jonli yangilanmoqda</span>
         </div>
 
-        <div id="assets-list">
-            <a href="./ton.html" class="crypto-row">
-                <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/ton.png" class="icon">
-                <div class="meta"><b>Toncoin</b><span>TON</span></div>
-                <div class="price-box">
-                    <b class="p-val" id="ton-price">$0.0000</b>
-                    <span class="p-change" id="ton-change">0.00%</span>
+        <!-- Crypto List -->
+        <div class="assets-wrapper" id="assets-list">
+            <!-- TON -->
+            <a href="./ton.html" class="crypto-item">
+                <div class="coin-icon-box">
+                    <img src="./image.png" class="coin-img" alt="TON">
+                </div>
+                <div class="coin-details">
+                    <span class="c-name">Gramcoin</span>
+                    <span class="c-ticker">GRAM / USDT</span>
+                </div>
+                <div class="price-details">
+                    <span class="price-val" id="ton-price">$0.0000</span>
+                    <span class="change-badge up" id="ton-change">0.00%</span>
                 </div>
             </a>
 
-            <a href="./btc.html" class="crypto-row">
-                <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/btc.png" class="icon">
-                <div class="meta"><b>Bitcoin</b><span>BTC</span></div>
-                <div class="price-box">
-                    <b class="p-val" id="btc-price">$0.00</b>
-                    <span class="p-change" id="btc-change">0.00%</span>
+            <!-- BTC -->
+            <a href="./btc.html" class="crypto-item">
+                <div class="coin-icon-box">
+                    <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/btc.png" class="coin-img" alt="BTC">
+                </div>
+                <div class="coin-details">
+                    <span class="c-name">Bitcoin</span>
+                    <span class="c-ticker">BTC / USDT</span>
+                </div>
+                <div class="price-details">
+                    <span class="price-val" id="btc-price">$0.00</span>
+                    <span class="change-badge up" id="btc-change">0.00%</span>
                 </div>
             </a>
 
-            <a href="./eth.html" class="crypto-row">
-                <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/eth.png" class="icon">
-                <div class="meta"><b>Ethereum</b><span>ETH</span></div>
-                <div class="price-box">
-                    <b class="p-val" id="eth-price">$0.00</b>
-                    <span class="p-change" id="eth-change">0.00%</span>
+            <!-- ETH -->
+            <a href="./eth.html" class="crypto-item">
+                <div class="coin-icon-box">
+                    <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/eth.png" class="coin-img" alt="ETH">
+                </div>
+                <div class="coin-details">
+                    <span class="c-name">Ethereum</span>
+                    <span class="c-ticker">ETH / USDT</span>
+                </div>
+                <div class="price-details">
+                    <span class="price-val" id="eth-price">$0.00</span>
+                    <span class="change-badge up" id="eth-change">0.00%</span>
                 </div>
             </a>
 
-            <a href="./usdt.html" class="crypto-row">
-                <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/usdt.png" class="icon">
-                <div class="meta"><b>Tether</b><span>USDT</span></div>
-                <div class="price-box">
-                    <b class="p-val" id="usdt-price">$1.00</b>
-                    <span class="p-change" id="usdt-change">0.00%</span>
+            <!-- USDT -->
+            <a href="./usdt.html" class="crypto-item">
+                <div class="coin-icon-box">
+                    <img src="https://static.okx.com/cdn/oksupport/asset/currency/icon/usdt.png" class="coin-img" alt="USDT">
+                </div>
+                <div class="coin-details">
+                    <span class="c-name">Tether</span>
+                    <span class="c-ticker">USDT / USDC</span>
+                </div>
+                <div class="price-details">
+                    <span class="price-val" id="usdt-price">$1.00</span>
+                    <span class="change-badge up" id="usdt-change">0.00%</span>
                 </div>
             </a>
         </div>
@@ -204,6 +292,7 @@
 
     <script>
         let lastPrices = {};
+        
         async function fetchPrices() {
             try {
                 const symbols = ["TONUSDT", "BTCUSDT", "ETHUSDT", "USDCUSDT"];
@@ -221,26 +310,31 @@
                     const newPrice = parseFloat(item.lastPrice);
                     const oldPrice = lastPrices[id];
 
+                    // Faqat narx yozuvining o'zini professional miltillashi (flash)
                     if (oldPrice && newPrice !== oldPrice) {
-                        const cls = newPrice > oldPrice ? 'flash-up' : 'flash-down';
-                        priceEl.classList.add(cls);
-                        setTimeout(() => priceEl.classList.remove(cls), 600);
+                        const flashClass = newPrice > oldPrice ? 'price-flash-up' : 'price-flash-down';
+                        priceEl.classList.remove('price-flash-up', 'price-flash-down'); // eskisini tozalash
+                        void priceEl.offsetWidth; // animatsiyani qayta yuklash uchun hiyla
+                        priceEl.classList.add(flashClass);
                     }
 
                     priceEl.innerText = `$${newPrice.toLocaleString(undefined, {
-                        minimumFractionDigits: id === 'ton' ? 4 : 2
+                        minimumFractionDigits: id === 'ton' ? 4 : 2,
+                        maximumFractionDigits: id === 'ton' ? 4 : 2
                     })}`;
 
                     const ch = parseFloat(item.priceChangePercent);
-                    changeEl.innerText = `${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch).toFixed(2)}%`;
-                    changeEl.className = `p-change ${ch >= 0 ? 'up' : 'down'}`;
+                    changeEl.innerText = `${ch >= 0 ? '+' : ''}${ch.toFixed(2)}%`;
+                    changeEl.className = `change-badge ${ch >= 0 ? 'up' : 'down'}`;
 
                     lastPrices[id] = newPrice;
                 });
-            } catch (e) { console.error("Data error"); }
+            } catch (e) { 
+                console.error("Xatolik."); 
+            }
         }
 
-        setInterval(fetchPrices, 2000);
+        setInterval(fetchPrices, 2500);
         fetchPrices();
     </script>
 </body>

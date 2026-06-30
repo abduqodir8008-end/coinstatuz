@@ -1,0 +1,92 @@
+<svg width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+  <title>NexCoin UZ Logo</title>
+
+  <rect x="0" y="0" width="680" height="680" rx="32" fill="#0d0a1e"/>
+
+  <!-- Corner brackets -->
+  <line x1="40" y1="80" x2="40" y2="40" stroke="#534AB7" stroke-width="1"/>
+  <line x1="40" y1="40" x2="80" y2="40" stroke="#534AB7" stroke-width="1"/>
+  <line x1="640" y1="80" x2="640" y2="40" stroke="#534AB7" stroke-width="1"/>
+  <line x1="640" y1="40" x2="600" y2="40" stroke="#534AB7" stroke-width="1"/>
+  <line x1="40" y1="600" x2="40" y2="640" stroke="#534AB7" stroke-width="1"/>
+  <line x1="40" y1="640" x2="80" y2="640" stroke="#534AB7" stroke-width="1"/>
+  <line x1="640" y1="600" x2="640" y2="640" stroke="#534AB7" stroke-width="1"/>
+  <line x1="640" y1="640" x2="600" y2="640" stroke="#534AB7" stroke-width="1"/>
+
+  <!-- Grid dots -->
+  <circle cx="120" cy="120" r="1.5" fill="#26215C"/>
+  <circle cx="200" cy="120" r="1.5" fill="#26215C"/>
+  <circle cx="480" cy="120" r="1.5" fill="#26215C"/>
+  <circle cx="560" cy="120" r="1.5" fill="#26215C"/>
+  <circle cx="120" cy="560" r="1.5" fill="#26215C"/>
+  <circle cx="200" cy="560" r="1.5" fill="#26215C"/>
+  <circle cx="480" cy="560" r="1.5" fill="#26215C"/>
+  <circle cx="560" cy="560" r="1.5" fill="#26215C"/>
+
+  <line x1="40" y1="340" x2="640" y2="340" stroke="#1a1040" stroke-width="0.5"/>
+
+  <!-- Main hexagon -->
+  <polygon points="340,130 430,180 430,280 340,330 250,280 250,180" fill="#110d2a" stroke="#7F77DD" stroke-width="1.5"/>
+  <polygon points="340,148 418,193 418,267 340,312 262,267 262,193" fill="none" stroke="#534AB7" stroke-width="0.8" stroke-dasharray="6 4"/>
+
+  <!-- Circuit lines -->
+  <line x1="430" y1="180" x2="470" y2="180" stroke="#534AB7" stroke-width="1"/>
+  <line x1="470" y1="180" x2="470" y2="148" stroke="#534AB7" stroke-width="1"/>
+  <line x1="470" y1="148" x2="510" y2="148" stroke="#534AB7" stroke-width="1"/>
+  <circle cx="470" cy="180" r="3" fill="#7F77DD"/>
+  <circle cx="510" cy="148" r="3.5" fill="#AFA9EC"/>
+
+  <line x1="430" y1="280" x2="500" y2="280" stroke="#534AB7" stroke-width="1"/>
+  <line x1="500" y1="280" x2="500" y2="310" stroke="#534AB7" stroke-width="1"/>
+  <circle cx="500" cy="280" r="3" fill="#7F77DD"/>
+  <circle cx="500" cy="310" r="3" fill="#534AB7"/>
+
+  <line x1="250" y1="180" x2="210" y2="180" stroke="#534AB7" stroke-width="1"/>
+  <line x1="210" y1="180" x2="210" y2="148" stroke="#534AB7" stroke-width="1"/>
+  <line x1="210" y1="148" x2="170" y2="148" stroke="#534AB7" stroke-width="1"/>
+  <circle cx="210" cy="180" r="3" fill="#7F77DD"/>
+  <circle cx="170" cy="148" r="3.5" fill="#AFA9EC"/>
+
+  <line x1="250" y1="280" x2="180" y2="280" stroke="#534AB7" stroke-width="1"/>
+  <line x1="180" y1="280" x2="180" y2="310" stroke="#534AB7" stroke-width="1"/>
+  <circle cx="180" cy="280" r="3" fill="#7F77DD"/>
+  <circle cx="180" cy="310" r="3" fill="#534AB7"/>
+
+  <line x1="340" y1="330" x2="340" y2="370" stroke="#534AB7" stroke-width="1"/>
+  <line x1="340" y1="370" x2="300" y2="370" stroke="#534AB7" stroke-width="1"/>
+  <circle cx="340" cy="370" r="3" fill="#7F77DD"/>
+  <circle cx="300" cy="370" r="3" fill="#534AB7"/>
+
+  <line x1="340" y1="130" x2="340" y2="90" stroke="#534AB7" stroke-width="1"/>
+  <line x1="340" y1="90" x2="380" y2="90" stroke="#534AB7" stroke-width="1"/>
+  <circle cx="340" cy="90" r="3" fill="#7F77DD"/>
+  <circle cx="380" cy="90" r="3.5" fill="#AFA9EC"/>
+
+  <!-- N letter -->
+  <text x="340" y="298" text-anchor="middle" font-family="sans-serif" font-size="120" font-weight="500" fill="#CECBF6">N</text>
+
+  <!-- Brand name -->
+  <text x="340" y="400" text-anchor="middle" font-family="sans-serif" font-size="52" font-weight="500" fill="#EEEDFE">NexCoin</text>
+
+  <!-- UZ badge -->
+  <rect x="290" y="415" width="100" height="28" rx="14" fill="#26215C" stroke="#7F77DD" stroke-width="0.8"/>
+  <text x="340" y="434" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" letter-spacing="4" fill="#AFA9EC">UZ</text>
+
+  <!-- Divider -->
+  <line x1="120" y1="465" x2="560" y2="465" stroke="#26215C" stroke-width="0.8"/>
+
+  <!-- Tagline -->
+  <text x="340" y="492" text-anchor="middle" font-family="sans-serif" font-size="13" letter-spacing="3" fill="#534AB7">NEXT GEN CRYPTO PLATFORM</text>
+
+  <!-- Dots -->
+  <circle cx="270" cy="520" r="2" fill="#534AB7"/>
+  <circle cx="290" cy="520" r="2" fill="#534AB7"/>
+  <circle cx="310" cy="520" r="2" fill="#7F77DD"/>
+  <circle cx="330" cy="520" r="2" fill="#AFA9EC"/>
+  <circle cx="350" cy="520" r="2" fill="#AFA9EC"/>
+  <circle cx="370" cy="520" r="2" fill="#7F77DD"/>
+  <circle cx="390" cy="520" r="2" fill="#534AB7"/>
+  <circle cx="410" cy="520" r="2" fill="#534AB7"/>
+
+  <text x="340" y="570" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#26215C">nexcoinuz.com</text>
+</svg>
